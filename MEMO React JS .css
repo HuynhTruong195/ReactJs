@@ -1,0 +1,225 @@
+
+ES6 (ECMAScript 2015) là phiên bản JavaScript được cập nhật lớn đầu tiên kể từ ES5
+
+✅🧠 1. let và const – Khai báo biến mới trong JS
+
+    Trước ES6:
+    var name = "Alice"; // Có thể khai báo lại, dễ gây lỗi
+
+    Với ES6:
+    let age = 25;      // Có thể gán lại (thay đổi)
+    const name = "Alice"; // Không thể gán lại
+
+    🔗 Trong React:
+
+    const [count, setCount] = useState(0); // count là const (dù set lại bằng hàm)
+
+✅🧠 2. Arrow Function (=>)(Hàm mũi tên)
+    Trước ES6:
+
+    function sayHello(name) {
+    return "Hello " + name;
+    }
+    Với ES6:
+
+    const sayHello = (name) => `Hello ${name}`;
+
+    🔗 Trong React:, thường dùng arrow function cho các handler như onClick={() => doSomething()}.
+        <button onClick={() => handleClick(user.id)}>Click</button>
+
+
+
+✅ 🧠 3. Template Literals (Chuỗi mẫu)
+Cho phép nhúng biến vào chuỗi bằng ${}.
+
+    const name = "Alice";
+    console.log(`Hello, ${name}`);
+
+
+✅ 🧠 4. Destructuring (Phân rã) Rút gọn việc lấy dữ liệu
+Object:
+    const user = { name: "Bob", age: 30 };
+    const { name, age } = user;
+
+Array:
+    const arr = [1, 2, 3];
+    const [a, b] = arr; // a = 1, b = 2
+    💡 Giải thích:
+    Giúp viết code ngắn gọn, dễ hiểu.
+
+    Rất hữu ích khi làm việc với props trong React.
+
+🔗 Trong React:
+
+    const UserCard = ({ name, email }) => <p>{name} - {email}</p>;;
+
+
+✅🧠 5. Default Parameters
+
+Đặt giá trị mặc định cho tham số trong hàm.
+💡Tránh lỗi khi tham số bị undefined.
+
+    const greet = (name = "Guest") => {
+        console.log(`Hi, ${name}`);
+    };
+    
+    greet(); // "Hi, Guest"
+
+
+✅ 🧠 6. Spread (...) và Rest (...) – Mở rộng & gom lại
+💡 Giải thích:
+    ... có 2 nghĩa:
+
+    Spread: Mở rộng array/object.
+
+    Rest: Gom các phần còn lại thành array.
+
+    Trong React, thường dùng để:
+
+    Truyền ...props.
+
+    Cập nhật state: setState(prev => ({...prev, updated: true})).
+
+
+ ➤ ✅ Spread Operator (...) – "Trải ra" dữ liệu
+ Dùng để trải (mở rộng) các phần tử trong mảng hoặc object vào nơi cần nhiều phần tử, như:
+    Khi sao chép
+    Khi kết hợp
+    Khi thêm mới phần tử
+
+        // Spread
+
+    📌 Ví dụ với Array:   
+    const nums1 = [1, 2, 3];
+    const nums2 = [...nums1, 4, 5];  // [1, 2, 3, 4, 5]
+    → ...nums1 trải các phần tử trong nums1 vào mảng mới.
+
+
+    📌 Ví dụ với Object:
+    const user = { name: "Anna", age: 25 };
+    const newUser = { ...user, city: "Hanoi" };
+    // newUser = { name: "Anna", age: 25, city: "Hanoi" }
+    → ...user sao chép tất cả key-value từ user, sau đó thêm hoặc ghi đè.
+
+
+    📌 Trong React:
+    Cập nhật state một phần:
+    setUser(prev => ({ ...prev, name: "New Name" }));
+
+    Truyền props động:
+    const props = { id: 1, name: "React" };
+    <Component {...props} />
+
+
+
+ ➤✅ Rest Parameter (...) – "Thu gom" phần còn lại
+ Dùng trong định nghĩa hàm, để gom nhiều tham số còn lại thành một mảng.
+    // Rest
+
+    📌 Ví dụ cơ bản:
+        const sum = (...nums) => {
+        return nums.reduce((a, b) => a + b, 0);
+        };
+
+        sum(1, 2, 3); // => 6
+        → ...nums gom tất cả tham số truyền vào thành mảng [1, 2, 3].
+
+    📌 Rest trong destructuring:
+
+        const { name, ...others } = { name: "Anna", age: 25, city: "HN" };
+        // name = "Anna"
+        // others = { age: 25, city: "HN" }
+        → ...others gom phần còn lại sau khi lấy name.
+
+        
+ 📌 Nhớ như sau:
+        Spread → dùng để copy/kết hợp/ghi đè
+        
+        "Trải ra" giá trị
+        
+        Rest → dùng để gom lại các giá trị
+        
+        "Thu vào" thành mảng/object
+
+
+
+✅🧠 7. Object Property Shorthand
+Giúp viết object gọn hơn khi tên key và biến trùng nhau.
+
+    const name = "Anna";
+    const user = { name }; // tương đương { name: name }
+
+
+✅🧠 8. Modules – export và import
+Tách code thành file. Rất quan trọng trong React.
+
+        // math.js
+        export const add = (a, b) => a + b;
+
+        // main.js
+        import { add } from './utils.js';
+
+        💡 Giải thích:
+        Dễ tổ chức code, dễ bảo trì.
+        
+        React cũng dùng import để load component, hook, function...
+
+✅🧠 9. Class
+Dùng để tạo component dạng class (trước đây trong React), hoặc làm việc với OOP.
+
+
+    class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    sayHi() {
+        console.log(`Hi, I'm ${this.name}`);
+    }
+    }
+
+    const p = new Person("Linh");
+    p.sayHi();  // "Hi, I'm Linh"
+    💡 Giải thích:
+    Dùng để định nghĩa đối tượng có cấu trúc rõ ràng.
+    Trước đây, React component viết bằng class (trước khi có Hooks).
+
+
+✅ 🧠10. Promises và async / await – Làm việc với API dễ hơn
+
+Quản lý xử lý bất đồng bộ — rất quan trọng khi fetch API trong React.
+
+    const fetchData = async () => {
+        const res = await fetch('/api/data');
+        const data = await res.json();
+        console.log(data);
+    };
+    💡 Giải thích:
+    Giúp viết code bất đồng bộ (API, server...) dễ đọc hơn.
+    
+    await chỉ dùng trong hàm async.
+    
+  
+
+                🎁  Tổng Kết 
+    Tính năng               	Ghi nhớ nhanh
+
+    let / const	                Khai báo biến chuẩn
+
+    Arrow Function          	Hàm ngắn + giữ this
+
+    Template Literal           	Chuỗi dễ đọc
+
+    Destructuring	            Rút gọn khi lấy data
+
+    Spread/Rest	                  Xử lý mảng/object siêu tiện
+
+    Default Param	             Tham số mặc định, chống lỗi
+
+    Object Shorthand	            Viết object gọn
+
+    Modules	                    Tách file, dùng import/export
+
+    Class	                 Dùng cho OOP / component cũ
+
+    async/await         	Gọi API dễ đọc, tránh .then() lồng
