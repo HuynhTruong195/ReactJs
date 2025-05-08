@@ -65,6 +65,33 @@ Array:
     
     greet(); // "Hi, Guest"
 
+    
+DEFAULT PARAMETER CHỈ ĐƯỢC ÁP DỤNG VỚI CÁC GIÁ TRỊ LÀ UNDEFINED
+
+const sum = (firstNumber = 20, secondNumber = 30) => {
+console.log(firstNumber, secondNumber);
+};
+
+sum(0,null); //0,null vì chỉ khi giá trị là undefined thì mới thay đổi
+
+//Default Paramettẻ là một hàm
+
+const getCompanyName = (){
+    return "Rikkei Education";
+};
+
+const  welcomeTo = (name = getCompanyName())=> {
+    console.log(name);
+};
+welcomeTo();
+
+VÍ DỤ THỰC TẾ HÀM TÍNH TIỀN SAU THUẾ VỚI GIÁ TRỊ MẶC ĐỊNH LÀ 10% (0.1)
+    const caculateTotal = (price, tax = 0.1) => {
+        retunrn price + price*tax;
+    }
+    console.log(caculateTotal(100)); //110
+    console.log(caculateTotal(100, 0.2)); //120 vì đã truyền 0.2 vào tax=0.2 . # undefined nên nhận
+
 
 ✅ 🧠 6. Spread (...) và Rest (...) – Mở rộng & gom lại
 💡 Giải thích:
@@ -110,6 +137,9 @@ Array:
     const props = { id: 1, name: "React" };
     <Component {...props} />
 
+📌///LƯU Ý: 
+Spread Operator chỉ hoạt động với mảng và object. 
+khi dùng với object nếu có thuộc tính trùng tên thì sẽ lấy giá trị sau cùng.
 
 
  ➤✅ Rest Parameter (...) – "Thu gom" phần còn lại
@@ -223,3 +253,89 @@ Quản lý xử lý bất đồng bộ — rất quan trọng khi fetch API tron
     Class	                 Dùng cho OOP / component cũ
 
     async/await         	Gọi API dễ đọc, tránh .then() lồng
+
+
+  =============================ARROW FUNCITON ======================================
+  
+  ✅ 1. Arrow Function là gì?
+  Định nghĩa:
+Arrow Function là một cách khai báo hàm mới trong ES6, ngắn gọn hơn, dùng ký hiệu => thay vì từ khóa function.
+
+🔹 Cách viết:
+    // Hàm truyền thống
+    function sayHi(name) {
+    return "Hi " + name;
+    }
+
+    // Arrow Function
+    ✔ Gọn trong 1 dòng:
+    const sayHi = (name) => "Hi " + name;
+
+    ✔ Dùng trong map:
+    const numbers = [1, 2, 3];
+    const squares = numbers.map(n => n * n); // [1, 4, 9]
+
+✅ 2. Đặc điểm nổi bật của Arrow Function
+A) 🔸 Ngắn gọn & dễ đọc
+    Truyền thống:
+
+    const double = function (x) {
+        return x * 2;
+      }
+
+    Arrow Function:
+      
+      const double = (x) => x * 2;
+
+B) 🔸 Không có arguments riêng
+      Arrow Function không có arguments như hàm thường.
+
+Truyền thống:
+    function showArgs() {
+        console.log(arguments); // [1, 2, 3]
+    }
+    showArgs(1, 2, 3);
+    Arrow Function (sai):
+    
+    const showArgs = () => {
+        console.log(arguments); // ❌ Lỗi: arguments is not defined
+    }
+    
+
+C) 🔸 Không có this riêng (lexical this)
+
+Arrow Function không tạo ra this mới, mà dùng this từ phạm vi bên ngoài (gọi là lexical this). Điều này rất quan trọng khi xử lý trong object hoặc class.
+    
+    📌 Ví dụ:
+    const person = {
+        name: "Nam",
+        age: 20,
+        sayHi: function () {
+          setTimeout(function () {
+            console.log(`Hi, I'm ${this.name}`);
+          }, 1000);
+        }
+      };
+      
+      person.sayHi(); 
+      ❌ Kết quả sai: //Hi, I'm undefined
+
+      ✅ Dùng Arrow Function để sửa:
+      const person = {
+        name: "Nam",
+        age: 20,
+        sayHi: function () {
+          setTimeout(() => {
+            console.log(`Hi, I'm ${this.name}`);
+          }, 1000);
+        }
+      };
+      
+      person.sayHi();
+      ✅ Kết quả đúng: // Hi, I'm Nam
+
+🔸 ➡️ Vì arrow function không tạo this mới, nên this bên trong setTimeout chính là this của sayHi, tức là trỏ đúng về person.
+
+...
+
+  
